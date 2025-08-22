@@ -17,7 +17,7 @@ def register_user(request):
     
 
 
-@api_view(['POST', 'GET'])
+@api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def create_blog(request):
     user = request.user
@@ -31,4 +31,7 @@ def create_blog(request):
     # elif request.method == 'GET':
     #     serializer = BlogSerializer()
     #     return Response(serializer.data)
-    
+
+def view_blogs(request):
+    serializer = BlogSerializer()
+    return Response(serializer.data, status=status.HTTP_200_OK)

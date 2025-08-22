@@ -27,6 +27,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 class BlogSerializer(serializers.ModelSerializer):
     class Meta:
         model = Blog
-        fields = ['title','slug', 'content', 'content', 'author', 'created_at', 'updated_at', 
+        fields = ['title','slug', 'content', 'author', 'created_at', 'updated_at', 
                     'published_time', 'is_draft', 'category', 'featured_img',  ]
 
