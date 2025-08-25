@@ -23,6 +23,12 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
                                         last_name = last_name, password=password)
 
         return new_user
+    
+class UpdateUserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ["id", "username", "email", "first_name", "last_name","bio","profile_img"
+                  ,"facebook", "instagram","twitter","linkedin",  ]
 
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
