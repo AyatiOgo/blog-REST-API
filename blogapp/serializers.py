@@ -10,7 +10,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             "password": {"write_only": True}
         }
         
-
     def create(self, validated_data):
         username = validated_data['username']
         email = validated_data['email']
