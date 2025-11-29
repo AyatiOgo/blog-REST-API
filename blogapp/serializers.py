@@ -26,13 +26,13 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 class UpdateUserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ["id", "username", "email", "first_name", "last_name","bio","profile_img"
+        fields = ["id", "email", "first_name", "last_name","bio","profile_img"
                   ,"facebook", "instagram","twitter","linkedin",  ]
 
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ['id', 'username', 'first_name', 'last_name']
+        fields = ['id', 'username', 'first_name', 'last_name', 'profile_img']
 
 class BlogSerializer(serializers.ModelSerializer):
     author = AuthorSerializer(read_only = True)

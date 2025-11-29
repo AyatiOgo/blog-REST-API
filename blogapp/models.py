@@ -23,6 +23,7 @@ class Blog(models.Model):
         ('Business', 'Business'),
         ('Sports', 'Sports'),
         ('Lifestyle', 'Lifestyle'),
+        ('Tech', 'Tech'),
     )
 
     title = models.CharField(max_length=255)
