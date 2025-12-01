@@ -5,7 +5,11 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.pagination import PageNumberPagination
 # Create your views here.
+
+class BlogPaginator(PageNumberPagination):
+    page_size = 3
 
 @api_view(['POST'])
 def register_user(request):
@@ -76,8 +80,23 @@ def delete_blog(request, id):
         return Response({"message":"Blog Deleted Succesfully"}, status=status.HTTP_204_NO_CONTENT)
 
 
+# @api_view(['GET'])
+# def view_blogs(request):
+#     blog = Blog.objects.all()
+#     serializer = BlogSerializer(blog, many = True)
+#     return Response(serializer.data, status=status.HTTP_200_OK)
+
 @api_view(['GET'])
 def view_blogs(request):
     blog = Blog.objects.all()
-    serializer = BlogSerializer(blog, many = True)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    paginator = BlogPaginator()
+    paginated_blog = paginator.paginate_queryset(blog, request)
+    serializer = BlogSerializer(paginated_blog, many = True)
+    return paginator.get_paginated_response(serializer.data)
+
+@api_view(['GET'])
+def get_blog(request, id):
+    blog = Blog.objects.get(id = id)
+    serializer = BlogSerializer(blog,)
+    return Response(serializer.data,  status= status.HTTP_200_OK)
+
