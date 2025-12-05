@@ -100,3 +100,10 @@ def get_blog(request, id):
     serializer = BlogSerializer(blog,)
     return Response(serializer.data,  status= status.HTTP_200_OK)
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_username(request):
+    user = request.user
+    username = user.username
+    return Response({"username": username })
+
