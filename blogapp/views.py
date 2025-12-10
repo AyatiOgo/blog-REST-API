@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from .models import Blog
-from .serializers import UserRegistrationSerializer, BlogSerializer, UpdateUserProfileSerializer
+from .serializers import UserRegistrationSerializer, BlogSerializer, UpdateUserProfileSerializer, UserInfoSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.pagination import PageNumberPagination
+from django.contrib.auth import get_user_model
 # Create your views here.
 
 class BlogPaginator(PageNumberPagination):
@@ -107,3 +108,9 @@ def get_username(request):
     username = user.username
     return Response({"username": username })
 
+@api_view(['GET'])
+def get_userinfo(request, username):
+    User = get_user_model()
+    user = User.objects.get(username=username)
+    serializer = UserInfoSerializer(user)
+    return Response(serializer.data)
